@@ -6,12 +6,20 @@ Este cambio ese l 222
 Inicio
 2 cambio
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> dbb5e1312529ef2e03edcda0207cd5d77a28712a
 >>>>>>> 433493e... 222
 =======
 CAMBIE TODO, QUE PEO SE CREAN 2 COMMIT, SERIAN 9 COMMITS
 >>>>>>> 935998d... Nuevo cambio
 =======
+<<<<<<< HEAD
 >>>>>>> 433493e... 222
 =======
 CAMBIE TODO, QUE PEO SE CREAN 2 COMMIT, SERIAN 9 COMMITS
 >>>>>>> 935998d... Nuevo cambio
+=======
+CAMBIE TODO, QUE PEO SE CREAN 2 COMMIT, SERIAN 9 COMMITS
+>>>>>>> b7d8a2a616fdb1cd1d774b44e8ef7d66fd9b6ec6
+>>>>>>> dbb5e1312529ef2e03edcda0207cd5d77a28712a
