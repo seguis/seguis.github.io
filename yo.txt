@@ -1,1 +1,6 @@
+<<<<<<< HEAD
 Este cambio ese l 222
+=======
+Inicio
+2 cambio
+>>>>>>> 433493e... 222
