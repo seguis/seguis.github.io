@@ -1,6 +1,10 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 Este cambio ese l 222
 =======
 Inicio
 2 cambio
 >>>>>>> 433493e... 222
+=======
+CAMBIE TODO, QUE PEO SE CREAN 2 COMMIT, SERIAN 9 COMMITS
+>>>>>>> 935998d... Nuevo cambio
