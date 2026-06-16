@@ -1,0 +1,857 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Seguis — Desarrollador & Sistemas</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --bg: #0a0a0a;
+        --bg2: #111111;
+        --bg3: #1a1a1a;
+        --border: #2a2a2a;
+        --text: #e5e5e5;
+        --muted: #888;
+        --purple: #8b5cf6;
+        --purple-light: #a78bfa;
+        --green: #10b981;
+        --amber: #f59e0b;
+        --blue: #3b82f6;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: "JetBrains Mono", "Courier New", monospace;
+        font-size: 15px;
+        line-height: 1.7;
+      }
+
+      a {
+        color: var(--purple-light);
+        text-decoration: none;
+      }
+      a:hover {
+        color: #fff;
+      }
+
+      /* NAV */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: rgba(10, 10, 10, 0.92);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
+        z-index: 100;
+        padding: 0 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 60px;
+      }
+
+      .nav-logo {
+        color: var(--purple-light);
+        font-size: 16px;
+        font-weight: bold;
+        letter-spacing: 2px;
+      }
+
+      .nav-logo span {
+        color: var(--green);
+      }
+
+      nav ul {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+      }
+
+      nav ul a {
+        color: var(--muted);
+        font-size: 12px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        transition: color 0.2s;
+      }
+
+      nav ul a:hover {
+        color: var(--text);
+      }
+
+      /* HERO */
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding: 80px 2rem 4rem;
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      .hero-inner {
+        width: 100%;
+      }
+
+      .terminal-line {
+        color: var(--green);
+        font-size: 13px;
+        margin-bottom: 1.5rem;
+        letter-spacing: 1px;
+      }
+
+      .terminal-line::before {
+        content: "$ ";
+        color: var(--muted);
+      }
+
+      .hero h1 {
+        font-size: clamp(2.5rem, 6vw, 4.5rem);
+        font-weight: bold;
+        line-height: 1.1;
+        margin-bottom: 1rem;
+        letter-spacing: -1px;
+      }
+
+      .hero h1 .highlight {
+        color: var(--purple-light);
+      }
+
+      .hero-sub {
+        font-size: 14px;
+        color: var(--muted);
+        margin-bottom: 2.5rem;
+        max-width: 560px;
+        line-height: 1.8;
+      }
+
+      .badge-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 2.5rem;
+      }
+
+      .badge {
+        font-size: 11px;
+        padding: 4px 12px;
+        border-radius: 4px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        font-weight: bold;
+      }
+
+      .badge-purple {
+        background: rgba(139, 92, 246, 0.15);
+        color: var(--purple-light);
+        border: 1px solid rgba(139, 92, 246, 0.3);
+      }
+      .badge-green {
+        background: rgba(16, 185, 129, 0.12);
+        color: var(--green);
+        border: 1px solid rgba(16, 185, 129, 0.3);
+      }
+      .badge-amber {
+        background: rgba(245, 158, 11, 0.12);
+        color: var(--amber);
+        border: 1px solid rgba(245, 158, 11, 0.3);
+      }
+      .badge-blue {
+        background: rgba(59, 130, 246, 0.12);
+        color: var(--blue);
+        border: 1px solid rgba(59, 130, 246, 0.3);
+      }
+
+      .hero-ctas {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        padding: 10px 24px;
+        border-radius: 6px;
+        font-family: inherit;
+        font-size: 12px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: all 0.2s;
+        border: none;
+      }
+
+      .btn-primary {
+        background: var(--purple);
+        color: #fff;
+      }
+      .btn-primary:hover {
+        background: var(--purple-light);
+        color: #0a0a0a;
+      }
+
+      .btn-outline {
+        background: transparent;
+        color: var(--text);
+        border: 1px solid var(--border);
+      }
+      .btn-outline:hover {
+        border-color: var(--purple);
+        color: var(--purple-light);
+      }
+
+      /* SECTIONS */
+      section {
+        padding: 6rem 2rem;
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      .section-label {
+        font-size: 11px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--purple-light);
+        margin-bottom: 0.5rem;
+      }
+
+      .section-title {
+        font-size: clamp(1.8rem, 4vw, 2.5rem);
+        font-weight: bold;
+        margin-bottom: 1rem;
+        line-height: 1.2;
+      }
+
+      .section-desc {
+        color: var(--muted);
+        font-size: 14px;
+        margin-bottom: 3rem;
+        max-width: 600px;
+      }
+
+      .divider {
+        border: none;
+        border-top: 1px solid var(--border);
+        margin: 0;
+      }
+
+      /* ABOUT */
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+      }
+
+      .about-card {
+        background: var(--bg2);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 1.5rem;
+      }
+
+      .about-card h3 {
+        font-size: 13px;
+        color: var(--purple-light);
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+      }
+
+      .about-card p {
+        font-size: 13px;
+        color: var(--muted);
+        line-height: 1.8;
+      }
+
+      .about-card p strong {
+        color: var(--text);
+      }
+
+      /* SKILLS */
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+      }
+
+      .skill-category {
+        background: var(--bg2);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 1.25rem;
+        transition: border-color 0.2s;
+      }
+
+      .skill-category:hover {
+        border-color: var(--purple);
+      }
+
+      .skill-cat-title {
+        font-size: 11px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .skill-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+
+      .dot-purple {
+        background: var(--purple-light);
+      }
+      .dot-green {
+        background: var(--green);
+      }
+      .dot-amber {
+        background: var(--amber);
+      }
+      .dot-blue {
+        background: var(--blue);
+      }
+
+      .skill-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .skill-list li {
+        font-size: 12px;
+        color: var(--muted);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .skill-list li::before {
+        content: "▸";
+        color: var(--purple-light);
+        font-size: 10px;
+      }
+
+      /* PROJECTS */
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .project-card {
+        background: var(--bg2);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 1.5rem;
+        transition:
+          border-color 0.2s,
+          transform 0.2s;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .project-card:hover {
+        border-color: var(--purple);
+        transform: translateY(-2px);
+      }
+
+      .project-icon {
+        font-size: 24px;
+        margin-bottom: 0.25rem;
+      }
+
+      .project-card h3 {
+        font-size: 15px;
+        font-weight: bold;
+        color: var(--text);
+      }
+
+      .project-card p {
+        font-size: 12px;
+        color: var(--muted);
+        line-height: 1.7;
+        flex: 1;
+      }
+
+      .project-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: 0.5rem;
+      }
+
+      .tag {
+        font-size: 10px;
+        padding: 2px 8px;
+        border-radius: 3px;
+        background: var(--bg3);
+        color: var(--muted);
+        border: 1px solid var(--border);
+        letter-spacing: 0.5px;
+      }
+
+      /* SERVICES */
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1rem;
+      }
+
+      .service-card {
+        background: var(--bg2);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 1.5rem;
+        transition: border-color 0.2s;
+      }
+
+      .service-card:hover {
+        border-color: var(--green);
+      }
+
+      .service-icon {
+        font-size: 22px;
+        margin-bottom: 0.75rem;
+      }
+
+      .service-card h3 {
+        font-size: 13px;
+        font-weight: bold;
+        color: var(--text);
+        margin-bottom: 0.5rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .service-card p {
+        font-size: 12px;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      /* CONTACT */
+      .contact-box {
+        background: var(--bg2);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 3rem;
+        text-align: center;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .contact-box h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .contact-box p {
+        color: var(--muted);
+        font-size: 13px;
+        margin-bottom: 2rem;
+      }
+
+      .contact-email {
+        display: inline-block;
+        font-size: 16px;
+        color: var(--purple-light);
+        border: 1px solid rgba(139, 92, 246, 0.3);
+        padding: 12px 28px;
+        border-radius: 6px;
+        margin-bottom: 2rem;
+        transition: all 0.2s;
+        background: rgba(139, 92, 246, 0.05);
+      }
+
+      .contact-email:hover {
+        background: rgba(139, 92, 246, 0.15);
+        color: #fff;
+      }
+
+      /* FOOTER */
+      footer {
+        border-top: 1px solid var(--border);
+        text-align: center;
+        padding: 2rem;
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      footer span {
+        color: var(--purple-light);
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 640px) {
+        nav ul {
+          display: none;
+        }
+        .about-grid {
+          grid-template-columns: 1fr;
+        }
+        .hero h1 {
+          font-size: 2.2rem;
+        }
+      }
+
+      /* CURSOR BLINK */
+      .cursor {
+        display: inline-block;
+        width: 10px;
+        height: 1.1em;
+        background: var(--green);
+        vertical-align: middle;
+        margin-left: 4px;
+        animation: blink 1s step-end infinite;
+      }
+
+      @keyframes blink {
+        50% {
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="nav-logo">seguis<span>.dev</span></div>
+      <ul>
+        <li><a href="#sobre-mi">Sobre mí</a></li>
+        <li><a href="#habilidades">Habilidades</a></li>
+        <li><a href="#proyectos">Proyectos</a></li>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-inner">
+        <p class="terminal-line">whoami</p>
+        <h1>
+          Desarrollador,<br /><span class="highlight">Redes & Sistemas</span
+          ><span class="cursor"></span>
+        </h1>
+        <p class="hero-sub">
+          DAM · DevOps · Linux · Networking · Proxmox · NAS · Reparación de
+          equipos.<br />
+          Construyo soluciones completas, desde la infraestructura hasta el
+          código.
+        </p>
+        <div class="badge-row">
+          <span class="badge badge-purple">Next.js</span>
+          <span class="badge badge-purple">TypeScript</span>
+          <span class="badge badge-green">Linux</span>
+          <span class="badge badge-green">Proxmox</span>
+          <span class="badge badge-amber">Cisco</span>
+          <span class="badge badge-amber">MikroTik</span>
+          <span class="badge badge-blue">Supabase</span>
+          <span class="badge badge-blue">Docker</span>
+        </div>
+        <div class="hero-ctas">
+          <a href="#proyectos" class="btn btn-primary">Ver proyectos</a>
+          <a href="#contacto" class="btn btn-outline">Contactar</a>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- SOBRE MÍ -->
+    <section id="sobre-mi">
+      <p class="section-label">// sobre mí</p>
+      <h2 class="section-title">Un perfil técnico completo</h2>
+      <p class="section-desc">
+        Desarrollador en formación DAM con experiencia real en redes, sistemas y
+        desarrollo web full-stack.
+      </p>
+      <div class="about-grid">
+        <div class="about-card">
+          <h3>// Formación</h3>
+          <p>
+            Técnico en
+            <strong>Desarrollo de Aplicaciones Multiplataforma (DAM)</strong>.
+            Apasionado por aprender continuamente — gran parte de mi stack lo he
+            construido con ayuda de IA, experimentación y proyectos reales.
+          </p>
+        </div>
+        <div class="about-card">
+          <h3>// Filosofía</h3>
+          <p>
+            Prefiero <strong>Linux</strong> sobre Windows. Me gusta controlar la
+            infraestructura al completo: desde el router hasta la aplicación
+            web. Si algo se puede automatizar, se automatiza.
+          </p>
+        </div>
+        <div class="about-card">
+          <h3>// Infraestructura propia</h3>
+          <p>
+            Tengo mi propio <strong>NAS con SnapRAID + MergerFS</strong>,
+            servidor Proxmox con VMs y contenedores LXC, y firewall OPNsense.
+            Aprendo haciendo.
+          </p>
+        </div>
+        <div class="about-card">
+          <h3>// Próximos pasos</h3>
+          <p>
+            Desarrollo de una <strong>plataforma RADIUS propia</strong> para
+            ofrecer autenticación como servicio. También ampliando conocimientos
+            en DevOps y cloud.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- HABILIDADES -->
+    <section id="habilidades">
+      <p class="section-label">// habilidades</p>
+      <h2 class="section-title">Stack técnico</h2>
+      <p class="section-desc">Desde el switch hasta la interfaz de usuario.</p>
+      <div class="skills-grid">
+        <div class="skill-category">
+          <div class="skill-cat-title">
+            <span class="skill-dot dot-purple"></span>
+            Desarrollo
+          </div>
+          <ul class="skill-list">
+            <li>Next.js / React</li>
+            <li>TypeScript</li>
+            <li>Tailwind CSS</li>
+            <li>Supabase</li>
+            <li>Node.js</li>
+          </ul>
+        </div>
+        <div class="skill-category">
+          <div class="skill-cat-title">
+            <span class="skill-dot dot-amber"></span>
+            Redes
+          </div>
+          <ul class="skill-list">
+            <li>Cisco IOS</li>
+            <li>Juniper</li>
+            <li>MikroTik</li>
+            <li>Teldat</li>
+            <li>VLAN, OSPF, BGP</li>
+          </ul>
+        </div>
+        <div class="skill-category">
+          <div class="skill-cat-title">
+            <span class="skill-dot dot-green"></span>
+            Sistemas & Linux
+          </div>
+          <ul class="skill-list">
+            <li>Proxmox VE</li>
+            <li>OPNsense</li>
+            <li>NAS (SnapRAID + MergerFS)</li>
+            <li>Docker / LXC</li>
+            <li>Bash scripting</li>
+          </ul>
+        </div>
+        <div class="skill-category">
+          <div class="skill-cat-title">
+            <span class="skill-dot dot-blue"></span>
+            Soporte & Hardware
+          </div>
+          <ul class="skill-list">
+            <li>Reparación de PCs / portátiles</li>
+            <li>Formateo e instalación de SO</li>
+            <li>Instalaciones de red (cableado)</li>
+            <li>Diagnóstico de hardware</li>
+            <li>Windows / Linux</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- PROYECTOS -->
+    <section id="proyectos">
+      <p class="section-label">// proyectos</p>
+      <h2 class="section-title">Lo que he construido</h2>
+      <p class="section-desc">
+        Proyectos reales, con código real y decisiones técnicas reales.
+      </p>
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-icon">🛍️</div>
+          <h3>VESH Accesorios</h3>
+          <p>
+            Tienda online completa de joyería y bisutería con autenticación,
+            panel de administración, gestión de pedidos y emails
+            transaccionales.
+          </p>
+          <div class="project-tags">
+            <span class="tag">Next.js</span>
+            <span class="tag">Supabase</span>
+            <span class="tag">TypeScript</span>
+            <span class="tag">Vercel</span>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-icon">💾</div>
+          <h3>NAS personal</h3>
+          <p>
+            Servidor NAS casero con SnapRAID para protección de datos y MergerFS
+            para pool de discos. Gestionado con Docker y accesible remotamente.
+          </p>
+          <div class="project-tags">
+            <span class="tag">Linux</span>
+            <span class="tag">SnapRAID</span>
+            <span class="tag">MergerFS</span>
+            <span class="tag">Docker</span>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-icon">🖥️</div>
+          <h3>Homelab con Proxmox</h3>
+          <p>
+            Infraestructura virtualizada en casa con Proxmox VE, múltiples VMs y
+            contenedores LXC, firewall OPNsense y VLANs.
+          </p>
+          <div class="project-tags">
+            <span class="tag">Proxmox</span>
+            <span class="tag">OPNsense</span>
+            <span class="tag">LXC</span>
+            <span class="tag">VLAN</span>
+          </div>
+        </div>
+        <div
+          class="project-card"
+          style="border-style: dashed; border-color: #333"
+        >
+          <div class="project-icon">📡</div>
+          <h3>
+            Plataforma RADIUS
+            <span style="font-size: 10px; color: var(--amber)"
+              >— En desarrollo</span
+            >
+          </h3>
+          <p>
+            Servicio de autenticación RADIUS propio orientado a ISPs y empresas.
+            Autenticación centralizada como servicio (RaaS).
+          </p>
+          <div class="project-tags">
+            <span class="tag">FreeRADIUS</span>
+            <span class="tag">Linux</span>
+            <span class="tag">Next.js</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- SERVICIOS -->
+    <section id="servicios">
+      <p class="section-label">// servicios</p>
+      <h2 class="section-title">¿En qué puedo ayudarte?</h2>
+      <p class="section-desc">
+        Ofrezco soluciones técnicas integrales para particulares y pequeñas
+        empresas.
+      </p>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">🌐</div>
+          <h3>Desarrollo web</h3>
+          <p>
+            Aplicaciones web modernas con Next.js, TypeScript y bases de datos.
+            Desde landing pages hasta plataformas completas.
+          </p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🔌</div>
+          <h3>Instalación de redes</h3>
+          <p>
+            Diseño e instalación de redes empresariales y domésticas. Equipos
+            Cisco, MikroTik, Juniper y Teldat.
+          </p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🖧</div>
+          <h3>Sistemas & servidores</h3>
+          <p>
+            Configuración de servidores Linux, virtualización con Proxmox, NAS,
+            firewalls OPNsense y Docker.
+          </p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🔧</div>
+          <h3>Reparación de equipos</h3>
+          <p>
+            Diagnóstico y reparación de PCs y portátiles. Formateo,
+            reinstalación de sistemas operativos y recuperación de datos.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- CONTACTO -->
+    <section id="contacto">
+      <p class="section-label">// contacto</p>
+      <h2 class="section-title" style="text-align: center">¿Hablamos?</h2>
+      <br />
+      <div class="contact-box">
+        <h3>Disponible para proyectos</h3>
+        <p>
+          Si tienes un proyecto en mente, necesitas soporte técnico o
+          simplemente quieres hablar de tecnología, escríbeme.
+        </p>
+        <a href="mailto:seguis.cs.jun@gmail.com" class="contact-email"
+          >seguis.cs.jun@gmail.com</a
+        >
+        <br />
+        <a
+          href="https://github.com/seguis"
+          target="_blank"
+          class="btn btn-outline"
+          style="
+            font-size: 12px;
+            margin-top: 0.5rem;
+            display: inline-block;
+            padding: 10px 24px;
+            border-radius: 6px;
+            border: 1px solid #2a2a2a;
+            color: #888;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-family: inherit;
+            transition: all 0.2s;
+          "
+        >
+          GitHub →
+        </a>
+      </div>
+    </section>
+
+    <footer>
+      <p>
+        Hecho con terminal y café &nbsp;·&nbsp; <span>seguis</span>.github.io
+        &nbsp;·&nbsp; 2026
+      </p>
+    </footer>
+  </body>
+</html>
